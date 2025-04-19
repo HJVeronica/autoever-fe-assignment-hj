@@ -1,0 +1,37 @@
+@import '@/styles/variables';
+@import '@/styles/colors';
+
+.filterBtnList {
+  display: flex;
+  flex-wrap: wrap;
+
+  margin-bottom: $px-md;
+
+  .filterBtn {
+    display: flex;
+    position: relative;
+    height: $btn-height-md;
+    overflow: hidden;
+    cursor: pointer;
+
+    input {
+      position: absolute;
+      width: 0;
+
+      &:checked + label {
+        background-color: $midnight900;
+        color: $white;
+      }
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: $btn-height-md;
+      font-weight: $font-weight-semibold;
+      padding: 0 $space-sm;
+      border-radius: calc($btn-height-md / 2);
+    }
+  }
+}

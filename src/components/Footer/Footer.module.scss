@@ -1,0 +1,77 @@
+@import '@/styles/variables';
+@import '@/styles/colors';
+
+$line-height: 24px;
+$footer-height: 176px;
+$column-gap: 12px;
+
+.footer {
+  background-color: $midnight900;
+  color: $gray400;
+  padding: 0 $side-padding;
+  position: relative;
+
+  .footerContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+
+    font-size: $font-size-md;
+    line-height: $line-height;
+
+    max-width: $max-width;
+    height: $footer-height;
+
+    margin: 0 auto;
+
+    .footerInfo {
+      .footerTerms {
+        display: flex;
+        justify-content: flex-end;
+
+        margin-bottom: 10px;
+        column-gap: 24px;
+
+        a {
+          color: $white;
+          font-size: $font-size-lg;
+          font-weight: $font-weight-semibold;
+          cursor: pointer;
+        }
+      }
+
+      .footerInfoText {
+        text-align: right;
+        display: flex;
+        justify-content: flex-end;
+        column-gap: $column-gap;
+        flex-wrap: wrap;
+
+        p {
+          display: inline-flex;
+          column-gap: $column-gap;
+
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+
+    .footerLogo {
+      margin: 0;
+
+      &::before {
+        content: '';
+        display: block;
+
+        background: url('@logos/logo_kia-wht.svg') no-repeat;
+        background-size: auto 100%;
+
+        height: 56px;
+        margin-bottom: 2px;
+      }
+    }
+  }
+}
