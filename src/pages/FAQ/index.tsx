@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import styles from './FAQ.module.scss';
 
 import TitleHeader from '@/components/TitleHeader';
@@ -9,48 +10,109 @@ import ServiceInquiry from '@/components/ServiceInquiry';
 import Process from '@/components/Process';
 import AppInfo from '@/components/AppInfo';
 
+// React Query hooks
+import { useCategory, CategoryItem } from '@/hooks/useCategory';
+import { useFaq, FaqItem } from '@/hooks/useFaq';
+
 const FAQ_CONSTANTS = {
   title: '자주 묻는 질문',
   description: '궁금하신 내용을 빠르게 찾아보세요.',
-  tabs: ['서비스 도입', '서비스 이용'],
-  filterList: ['서비스 상품', '도입 상담', '계약'],
-  list: [
-    {
-      id: 38,
-      categoryName: '도입문의',
-      subCategoryName: '서비스 상품',
-      question: '기아 비즈에서는 어떤 상품을 이용할 수 있나요?',
-      answer:
-        '<p>소속 회사가 기아 비즈 이용 계약이 되어있다면,<br>업무 시간에는 이용 건별 별도 결제 없이 편리하게 업무용 차량을 이용할 수 있고(대여 요금은 소속 회사에서 부담), <br>비업무 시간에는 출퇴근 및 주말 여가옹으로 차량을 이용 (대여 요금은 개인이 부담) 할 수 있습니다.</p><p> </p><p>자세한 상품 안내는 메뉴 &gt; 하단의 &#39;이용가이드&#39; &gt; 상품 안내 탭을 통해 확인하실 수 있습니다.<br> </p><p> </p>',
-    },
-    {
-      id: 107,
-      categoryName: '도입문의',
-      subCategoryName: '서비스 상품',
-      question: '기아 비즈 비즈니스용 상품 이용 시 무엇이 좋은가요?',
-      answer:
-        '<p>기아 비즈의 &#39;비즈니스 상품&#39; 이용 시, 기존 차량 이용 대비 아래와 같은 장점이 있습니다.</p><p>- 차량 보유 및 유지관리비 부담 없이, 우리 회사의 차량 이용 패턴에 딱 맞는 상품으로 계약 후 업무용 차량 운영 가능</p><p>- App 하나로 편하게 예약하고, 스마트키로 제어하는 비대면 간편 대여</p><p>- 회사가 등록한 결제 수단으로 자동 결제 및 간편한 증빙 가능</p><p>* 재직 중인 회사의 기아 비즈 차량 이용과 관련한 자세한 내용은 사내 기아 비즈 담당자에게 문의하시기 바랍니다.</p>',
-    },
-    {
-      id: 134,
-      categoryName: '도입문의',
-      subCategoryName: '도입 상담',
-      question: '비즈니스 상품 도입 기간은 얼마나 걸리나요?',
-      answer:
-        '<p><span style="font-size: &#39;13pt&#39;; color: rgba(106, 122, 135, 1); word-break: keep-all;">기아 비즈 도입 상담을 신청하신 경우, 빠른 시일 내에 기재해주신 연락처로 연락드릴 예정입니다. </span></p><p><span style="font-size: &#39;13pt&#39;; color: rgba(106, 122, 135, 1); word-break: keep-all;">담당자와의 1:1 상담 후 최대한 원하시는 시기에 맞춰 서비스가 도입될 수 있도록 도와드리고 있으나, 도입하시는 상품에 따라 소요되는 기간은 다소 상이할 수 있습니다. </span></p>',
-    },
-    {
-      id: 135,
-      categoryName: '도입문의',
-      subCategoryName: '계약',
-      question: '비즈니스 상품 도입 절차가 어떻게 되나요?',
-      answer:
-        '<p>기아 비즈 &#39;비즈니스 상품&#39; 도입 절차는 아래와 같습니다.</p><p>① 상담 문의 등록 후 1:1 맞춤 상담 진행</p><p>② 서비스 도입 상품 및 세부 조건 협의 후 계약 진행</p><p>③ 관리자 Web 계정 생성 후 회사 정보 설정</p><p>④ 임직원 회원가입 진행</p><p>⑤ 전용 K존에서 차량 대여 및 이용</p>',
-    },
-  ],
 };
 
 const FAQPage = () => {
+  // 상태 관리
+  const [selectedTab, setSelectedTab] = useState<string>('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [selectedFilter, setSelectedFilter] = useState<string>('');
+  const [filterList, setFilterList] = useState<CategoryItem[]>([]);
+
+  // 카테고리 데이터 가져오기
+  const { data: categoryData, isLoading: isCategoryLoading } = useCategory();
+
+  // 선택된 탭/필터/검색어에 따라 FAQ 데이터 가져오기
+  // React Query가 queryKey 변경을 감지하여 자동으로 새 데이터를 가져옴
+  const {
+    data: faqData,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading: isFaqLoading,
+  } = useFaq({
+    category: selectedFilter || selectedTab,
+    query: searchQuery,
+  });
+
+  // 카테고리 데이터 로드 후 초기 탭 선택
+  useEffect(() => {
+    if (categoryData && !selectedTab) {
+      // 초기 탭 설정 (CONSULT)
+      const firstCategoryType = Object.keys(categoryData)[0];
+      if (firstCategoryType && categoryData[firstCategoryType].length > 0) {
+        setSelectedTab(firstCategoryType);
+      }
+    }
+  }, [categoryData, selectedTab]);
+
+  // 탭 변경 시 필터 목록 업데이트
+  useEffect(() => {
+    if (categoryData && selectedTab) {
+      // 선택된 탭에 맞는 필터 목록 설정
+      setFilterList(categoryData[selectedTab] || []);
+      // 탭이 변경되면 필터 초기화
+      setSelectedFilter('');
+    }
+  }, [categoryData, selectedTab]);
+
+  // 탭 전환 핸들러
+  const handleTabChange = (categoryType: string) => {
+    setSelectedTab(categoryType);
+    // 탭 변경 시 검색어 초기화
+    setSearchQuery('');
+  };
+
+  // 검색 핸들러
+  const handleSearch = (query: string) => {
+    setSearchQuery(query);
+    // 검색 시 필터 초기화
+    setSelectedFilter('');
+  };
+
+  // 필터 선택 핸들러
+  const handleFilterSelect = (categoryID: string) => {
+    // categoryID가 빈 문자열이거나 현재 선택된 필터와 같으면 필터를 해제
+    if (categoryID === selectedFilter) {
+      setSelectedFilter('');
+    } else {
+      setSelectedFilter(categoryID);
+    }
+  };
+
+  // 더보기 버튼 핸들러
+  const handleLoadMore = () => {
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  // 데이터에서 FAQ 항목 추출
+  const faqItems: FaqItem[] = faqData?.pages.flatMap((page) => page.data) || [];
+
+  // 디버깅을 위한 콘솔 로그
+  console.log('FAQ 데이터:', faqData);
+
+  // 로딩 상태 표시
+  if (isCategoryLoading) {
+    return <div>카테고리를 불러오는 중...</div>;
+  }
+
+  // 탭 목록 추출
+  const tabs = Object.keys(categoryData || {}).map((key) => {
+    return {
+      categoryID: key,
+      name: key === 'CONSULT' ? '서비스 도입' : '서비스 이용',
+    };
+  });
+
   return (
     <main className={styles.main}>
       <div className={styles.content}>
@@ -59,13 +121,53 @@ const FAQPage = () => {
           description={FAQ_CONSTANTS.description}
         />
 
-        <TabSwitcher tabs={FAQ_CONSTANTS.tabs} />
+        <TabSwitcher tabs={tabs} onTabChange={handleTabChange} />
 
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
 
-        <FilterBtnList filterList={FAQ_CONSTANTS.filterList} />
+        <FilterBtnList
+          filterList={filterList.map((item) => item.name)}
+          onFilterSelect={(index) => {
+            // 전체 버튼인 경우 빈 문자열 전달
+            if (index === -1) {
+              handleFilterSelect('');
+            } else {
+              // 해당 인덱스의 카테고리 ID 전달
+              const selectedCategoryID = filterList[index]?.categoryID || '';
+              handleFilterSelect(selectedCategoryID);
+            }
+          }}
+          selectedIndex={
+            selectedFilter === ''
+              ? -1
+              : filterList.findIndex(
+                  (item) => item.categoryID === selectedFilter,
+                )
+          }
+        />
 
-        <CollapseList list={FAQ_CONSTANTS.list} />
+        {isFaqLoading ? (
+          <div>FAQ를 불러오는 중...</div>
+        ) : faqItems.length > 0 ? (
+          <>
+            <CollapseList
+              list={faqItems}
+              subCategoryOn={selectedTab === 'USAGE'}
+            />
+
+            {hasNextPage && (
+              <button
+                onClick={handleLoadMore}
+                disabled={isFetchingNextPage}
+                className={styles.loadMoreBtn}
+              >
+                {isFetchingNextPage ? '로딩 중...' : '더보기'}
+              </button>
+            )}
+          </>
+        ) : (
+          <div>표시할 FAQ 항목이 없습니다.</div>
+        )}
 
         <ServiceInquiry />
         <Process />
