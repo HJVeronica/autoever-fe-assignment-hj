@@ -9,6 +9,7 @@ import CollapseList from '@/pages/FAQ/components/CollapseList';
 import ServiceInquiry from '@/components/ServiceInquiry';
 import Process from '@/components/Process';
 import AppInfo from '@/components/AppInfo';
+import ScrollTopButton from '@/components/ScrollTopButton';
 
 // React Query hooks
 import { useCategory, CategoryItem } from '@/hooks/useCategory';
@@ -173,6 +174,9 @@ const FAQPage = () => {
         <Process />
         <AppInfo />
       </div>
+
+      {/* 스크롤 상단으로 이동하는 버튼 */}
+      <ScrollTopButton />
     </main>
   );
 };
