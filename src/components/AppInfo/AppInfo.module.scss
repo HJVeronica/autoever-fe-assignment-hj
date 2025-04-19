@@ -1,0 +1,71 @@
+@import '@/styles/colors';
+@import '@/styles/variables';
+
+.appInfo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+
+  background-color: $gray10;
+  border-radius: 16px;
+
+  padding: 32px;
+  margin-top: 48px;
+  overflow: hidden;
+
+  h2 {
+    font-size: 24px;
+    line-height: $line-height-sm;
+    text-align: center;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+
+  .appInfoBtnContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+  }
+}
+
+.linkButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 16px;
+  font-weight: $font-weight-semibold;
+
+  width: 296px;
+  height: 60px;
+
+  border-radius: 8px;
+  background-color: $white;
+
+  &::before {
+    display: inline-block;
+    background-size: auto 100%;
+    background-repeat: no-repeat;
+    background-position: left;
+    content: '';
+    width: 28px;
+    height: 28px;
+    margin-right: 4px;
+  }
+}
+
+// Play Store 특정 스타일 (이미지)
+.playstore {
+  &::before {
+    background-image: url('@logos/logo_playstore.svg');
+  }
+}
+
+// App Store 특정 스타일 (이미지)
+.appstore {
+  &::before {
+    background-image: url('@logos/logo_appstore.svg');
+  }
+}

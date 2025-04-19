@@ -1,0 +1,36 @@
+@import '@/styles/variables';
+@import '@/styles/colors';
+
+.tabs {
+  display: flex;
+  margin-bottom: $px-lg;
+
+  li {
+    flex: 1 1;
+    background-color: $white;
+    border: 1px solid $midnight100;
+
+    font-size: $tab-font-size;
+
+    min-height: $btn-height-xlg2;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 8px;
+
+    &.active {
+      background-color: $midnight900;
+      border-color: $midnight900;
+      color: $white;
+
+      font-weight: $font-weight-semibold;
+    }
+  }
+}

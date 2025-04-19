@@ -1,0 +1,44 @@
+@import '@/styles/colors';
+@import '@/styles/variables';
+
+.serviceInquiry {
+  .serviceInquiryContent {
+    display: flex;
+    margin: 0 calc($space-md * -1 / 2);
+
+    .serviceInquiryItem {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      column-gap: 8px;
+
+      flex: 1 1;
+      margin: 0 calc($space-md / 2);
+      padding: 0 1.4em;
+
+      background-color: $white;
+      border: 1px solid $midnight900;
+
+      font-size: $btn-2xl-font-size;
+      font-weight: $font-weight-semibold;
+      height: $btn-2xl;
+      min-height: $btn-2xl;
+
+      img {
+        height: $icon-lg;
+        width: $icon-lg;
+      }
+
+      span {
+        line-height: $line-height-sm;
+
+        .serviceInquiryItemSubtitle {
+          color: $gray500;
+          display: block;
+          font-size: 14px;
+          font-weight: $font-weight-regular;
+        }
+      }
+    }
+  }
+}
