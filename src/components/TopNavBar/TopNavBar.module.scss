@@ -1,5 +1,5 @@
-@import '@/styles/variables';
-@import '@/styles/colors';
+@import '@styles/variables';
+@import '@styles/colors';
 
 .container {
   padding: 0 $side-padding;
@@ -9,6 +9,12 @@
   z-index: 100;
 
   background-color: $white;
+  transition: box-shadow 0.3s ease;
+
+  // 스크롤 시 box-shadow 적용
+  &.scrolled {
+    box-shadow: 0 4px 32px 0 rgba(0, 0, 0, 0.08);
+  }
 }
 
 .inner {
