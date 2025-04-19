@@ -13,6 +13,8 @@
     height: $btn-height-md;
     overflow: hidden;
     cursor: pointer;
+    transition: all 0.2s ease;
+    user-select: none;
 
     input {
       position: absolute;
@@ -21,6 +23,7 @@
       &:checked + label {
         background-color: $midnight900;
         color: $white;
+        font-weight: $font-weight-semibold;
       }
     }
 
@@ -32,6 +35,8 @@
       font-weight: $font-weight-semibold;
       padding: 0 $space-sm;
       border-radius: calc($btn-height-md / 2);
+      transition: all 0.2s ease;
+      cursor: pointer;
     }
   }
 }

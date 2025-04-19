@@ -29,8 +29,7 @@ $collapse-content-padding: 32px 40px;
       line-height: $line-height-sm;
 
       &::after {
-        background: url('@icons/ic_arrow.svg')
-          no-repeat;
+        background: url('@icons/ic_arrow.svg') no-repeat;
         background-size: auto 100%;
         content: '';
 
@@ -45,11 +44,16 @@ $collapse-content-padding: 32px 40px;
           -webkit-transform 0.4s $cubic-bezier-primary;
       }
 
+      &.active::after {
+        transform: rotate(180deg);
+      }
+
       .collapseItemCategory {
         box-sizing: initial;
         width: 8em;
         padding: 0 $collapse-item-padding;
         color: $gray500;
+        text-align: center;
       }
 
       .collapseItemTitle {
