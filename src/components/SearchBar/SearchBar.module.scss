@@ -1,5 +1,6 @@
 @import '@/styles/variables';
 @import '@/styles/colors';
+@import '@/styles/responsive';
 
 $clear-space: 16px;
 
@@ -13,10 +14,24 @@ $clear-space: 16px;
   padding: $px-md;
   margin-bottom: $px-md;
 
+  @include tablet-and-mobile {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  @include desktop {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+
   .wrapper {
     width: $search-bar-width;
 
     position: relative;
+
+    @include mobile {
+      width: 100%;
+    }
 
     input {
       width: 100%;
@@ -28,6 +43,17 @@ $clear-space: 16px;
 
       padding-left: 16px;
       padding-right: calc($icon-sm + $clear-space + $btn-height-xlg2 - 2px);
+
+      @include mobile {
+        height: 40px;
+        font-size: 0.875rem;
+        padding-right: calc(20px + $clear-space + 40px - 2px);
+      }
+
+      @include tablet {
+        height: 48px;
+        padding-right: calc(24px + 16px + 48px - 2px);
+      }
     }
 
     .reset {
@@ -44,6 +70,18 @@ $clear-space: 16px;
 
       font-size: 0;
 
+      @include mobile {
+        right: calc(-1px + 40px);
+        height: 40px;
+        width: calc(20px + $clear-space);
+      }
+
+      @include tablet {
+        right: calc(-1px + 48px);
+        height: 48px;
+        width: calc(20px + 16px);
+      }
+
       &::before {
         content: '';
 
@@ -54,6 +92,16 @@ $clear-space: 16px;
         background-size: auto 100%;
         background-repeat: no-repeat;
         background-position: center;
+
+        @include mobile {
+          width: 20px;
+          height: 20px;
+        }
+
+        @include tablet {
+          width: 24px;
+          height: 24px;
+        }
       }
     }
 
@@ -71,6 +119,16 @@ $clear-space: 16px;
 
       font-size: 0;
 
+      @include mobile {
+        width: calc(40px - 2px);
+        height: 40px;
+      }
+
+      @include tablet {
+        width: calc(48px - 2px);
+        height: 48px;
+      }
+
       &::before {
         content: '';
 
@@ -81,6 +139,16 @@ $clear-space: 16px;
         background-size: auto 100%;
         background-repeat: no-repeat;
         background-position: center;
+
+        @include mobile {
+          width: 20px;
+          height: 20px;
+        }
+
+        @include tablet {
+          width: 28px;
+          height: 28px;
+        }
       }
     }
   }

@@ -83,3 +83,16 @@ button {
   font-size: $h2-font-size;
   margin: $h2-margin;
 }
+
+@include mobile {
+  .sectionTitle {
+    font-size: 20px;
+    margin: 48px 0 16px;
+  }
+}
+
+@include desktop {
+  .sectionTitle {
+    margin: 48px 0 24px;
+  }
+}

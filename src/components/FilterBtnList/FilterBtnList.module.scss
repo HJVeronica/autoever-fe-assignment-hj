@@ -1,11 +1,21 @@
 @import '@/styles/variables';
 @import '@/styles/colors';
+@import '@/styles/responsive';
 
 .filterBtnList {
   display: flex;
   flex-wrap: wrap;
-
+  gap: 8px;
   margin-bottom: $px-md;
+
+  @include mobile {
+    margin-bottom: 16px;
+    gap: 6px;
+  }
+
+  @include tablet {
+    margin-bottom: 20px;
+  }
 
   .filterBtn {
     display: flex;
@@ -13,8 +23,14 @@
     height: $btn-height-md;
     overflow: hidden;
     cursor: pointer;
+    border-radius: calc($btn-height-md / 2);
     transition: all 0.2s ease;
     user-select: none;
+
+    @include mobile {
+      height: 36px;
+      border-radius: 18px;
+    }
 
     input {
       position: absolute;
@@ -37,6 +53,13 @@
       border-radius: calc($btn-height-md / 2);
       transition: all 0.2s ease;
       cursor: pointer;
+
+      @include mobile {
+        min-width: 36px;
+        padding: 0 12px;
+        font-size: 13px;
+        border-radius: 18px;
+      }
     }
   }
 }

@@ -1,5 +1,6 @@
 @import '@/styles/variables';
 @import '@/styles/colors';
+@import '@/styles/responsive';
 
 $line-height: 24px;
 $footer-height: 176px;
@@ -10,6 +11,14 @@ $column-gap: 12px;
   color: $gray400;
   padding: 0 $side-padding;
   position: relative;
+
+  @include mobile {
+    padding: 0 24px;
+  }
+
+  @include tablet {
+    padding: 0 48px;
+  }
 
   .footerContainer {
     display: flex;
@@ -25,6 +34,27 @@ $column-gap: 12px;
 
     margin: 0 auto;
 
+    @include mobile {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+
+      padding-bottom: 29px;
+      padding-top: 23px;
+
+      height: 284px;
+      font-size: 12px;
+    }
+
+    @include tablet {
+      flex-direction: column;
+      align-items: flex-start;
+      padding-bottom: 44px;
+      padding-top: 34px;
+
+      font-size: 14px;
+      height: 296px;
+    }
+
     .footerInfo {
       .footerTerms {
         display: flex;
@@ -33,11 +63,24 @@ $column-gap: 12px;
         margin-bottom: 10px;
         column-gap: 24px;
 
+        @include mobile {
+          column-gap: 16px;
+          margin-bottom: 16px;
+        }
+
+        @include tablet-and-mobile {
+          justify-content: flex-start;
+        }
+
         a {
           color: $white;
           font-size: $font-size-lg;
           font-weight: $font-weight-semibold;
           cursor: pointer;
+
+          @include mobile {
+            font-size: 14px;
+          }
         }
       }
 
@@ -48,9 +91,24 @@ $column-gap: 12px;
         column-gap: $column-gap;
         flex-wrap: wrap;
 
+        @include mobile {
+          max-width: 300px !important;
+          column-gap: 10px;
+        }
+
+        @include tablet-and-mobile {
+          justify-content: flex-start;
+          max-width: 450px;
+        }
+
         p {
           display: inline-flex;
           column-gap: $column-gap;
+
+          @include mobile {
+            font-size: 12px;
+            column-gap: 12px;
+          }
 
           a {
             text-decoration: underline;
@@ -62,6 +120,10 @@ $column-gap: 12px;
     .footerLogo {
       margin: 0;
 
+      @include mobile {
+        order: -1;
+      }
+
       &::before {
         content: '';
         display: block;
@@ -71,6 +133,10 @@ $column-gap: 12px;
 
         height: 56px;
         margin-bottom: 2px;
+
+        @include mobile {
+          height: 40px;
+        }
       }
     }
   }

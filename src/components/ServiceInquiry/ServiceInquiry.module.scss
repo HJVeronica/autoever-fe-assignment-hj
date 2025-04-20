@@ -6,6 +6,21 @@
     display: flex;
     margin: 0 calc($space-md * -1 / 2);
 
+    @include mobile {
+      flex-direction: column;
+      margin: 0 calc(16px * -1 / 2) !important;
+      row-gap: 12px;
+    }
+
+    @include tablet-and-mobile {
+      flex-wrap: wrap;
+      margin: 0 calc(24px * -1 / 2);
+    }
+
+    @include desktop {
+      margin: 0 calc(24px * -1 / 2);
+    }
+
     .serviceInquiryItem {
       display: inline-flex;
       align-items: center;
@@ -24,9 +39,33 @@
       height: $btn-2xl;
       min-height: $btn-2xl;
 
+      @include mobile {
+        justify-content: flex-start;
+        margin: 0 calc(16px / 2);
+      }
+
+      @include tablet {
+        &:last-child {
+          margin-top: 24px !important;
+          min-width: calc(100% - 24px);
+        }
+
+        font-size: 16px;
+        margin: 0 calc(24px / 2);
+      }
+
+      @include desktop {
+        margin: 0 calc(24px / 2);
+      }
+
       img {
         height: $icon-lg;
         width: $icon-lg;
+
+        @include tablet-and-mobile {
+          width: 32px;
+          height: 32px;
+        }
       }
 
       span {

@@ -14,12 +14,25 @@
   margin-top: 48px;
   overflow: hidden;
 
+  @include mobile {
+    padding: 24px;
+  }
+
   h2 {
     font-size: 24px;
     line-height: $line-height-sm;
     text-align: center;
     margin-bottom: 24px;
     width: 100%;
+
+    @include mobile {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+
+    @include tablet {
+      font-size: 20px;
+    }
   }
 
   .appInfoBtnContainer {
@@ -27,6 +40,11 @@
     align-items: center;
     justify-content: center;
     gap: 16px;
+
+    @include mobile {
+      flex-direction: column;
+      gap: 12px;
+    }
   }
 }
 
@@ -35,14 +53,32 @@
   align-items: center;
   justify-content: center;
 
-  font-size: 16px;
+  font-size: 18px;
   font-weight: $font-weight-semibold;
 
-  width: 296px;
-  height: 60px;
+  width: 392px;
+  height: 64px;
 
   border-radius: 8px;
   background-color: $white;
+
+  @include mobile {
+    width: 264px;
+    height: 48px;
+    font-size: 14px;
+  }
+
+  @include tablet {
+    font-size: 14px;
+    height: 56px;
+    width: 264px;
+  }
+
+  @include desktop {
+    font-size: 16px;
+    height: 60px;
+    width: 296px;
+  }
 
   &::before {
     display: inline-block;
@@ -53,6 +89,16 @@
     width: 28px;
     height: 28px;
     margin-right: 4px;
+
+    @include mobile {
+      width: 24px;
+      height: 24px;
+    }
+
+    @include tablet {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 

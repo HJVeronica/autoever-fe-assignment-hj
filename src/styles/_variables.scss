@@ -1,14 +1,11 @@
+@import 'responsive';
+
 $max-width: 1660px;
 $content-max-width: 1240px;
 $search-bar-width: 100%;
 
 $cubic-bezier-primary: cubic-bezier(1, 0, 0.2, 1);
 
-$side-padding: 48px;
-$bottom-padding: 80px;
-$h2-margin: 48px 0 24px;
-
-$header-height: 80px;
 $title-header-height: 222px;
 
 $line-height-sm: 1.4;
@@ -21,26 +18,45 @@ $font-weight-semibold: 600;
 $font-size-md: 14px;
 $font-size-lg: 16px;
 
-$h1-font-size: 48px;
-$h1-font-size-sm: 20px;
-$h2-font-size: 24px;
-$tab-font-size: 20px;
-$btn-2xl-font-size: 18px;
-
-$btn-2xl: 80px;
-$btn-height-xlg2: 56px;
-$btn-height-md: 48px;
-
-$px-xlg: 76px;
-$px-lg: 48px;
+// 기본 변수 (desktop)
 $px-md: 24px;
-$px-sm: 16px;
-$px-xs: 8px;
-
+$px-lg: 48px;
+$px-xlg: 76px;
+$input-md: 56px;
+$input-md-fsize: 18px;
+$textarea-md: 200px;
+$space-xsm: 16px;
+$space-xsm2: 16px;
+$space-sm: 20px;
+$space-sm2: 20px;
+$space-md: 32px;
+$space-md2: 28px;
+$space-md3: 32px;
+$space-box: 64px;
+$space-box2: 160px;
+$h2-font-size: 24px;
+$h2-margin: 64px 0 24px;
+$heading-4: 20px;
+$heading-4-margin: 28px 0 12px;
+$heading-info: 24px;
+$heading-box: 24px;
+$btn-height-md: 48px;
+$btn-xlg: 56px;
+$btn-height-xlg2: 56px;
+$btn-2xl: 80px;
+$btn-2xl-font-size: 18px;
 $icon-sm: 24px;
 $icon-md: 32px;
-$icon-lg: 40px;
-$icon-xl: 48px;
-
-$space-sm: 20px;
-$space-md: 24px;
+$icon-lg: 48px;
+$icon-xl: 56px;
+$ic-xlg2: 64px;
+$ic-xxlg: 96px;
+$header-height: 80px;
+$footer-height: 176px;
+$side-padding: 48px;
+$bottom-padding: 96px;
+$h1-height: 222px;
+$h1-font-size: 48px;
+$h1-font-size-sm: 20px;
+$tab-font-size: 20px;
+$list-more-size: 18px;
