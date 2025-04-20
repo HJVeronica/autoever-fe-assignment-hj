@@ -1,33 +1,17 @@
 import { useState } from 'react';
 import styles from './CollapseList.module.scss';
-
-interface CollapseItem {
-  id: number;
-  categoryName: string;
-  subCategoryName: string;
-  question: string;
-  answer: string;
-}
+import { FaqItem } from '@/hooks/useFaq';
 
 interface CollapseListProps {
-  list: CollapseItem[];
+  list: FaqItem[];
   subCategoryOn?: boolean; // USAGE 카테고리인지 여부
 }
 
-interface OpenItemsState {
-  [key: number]: boolean;
-}
-
 const CollapseList = ({ list, subCategoryOn = false }: CollapseListProps) => {
-  // 각 항목의 collapse 상태를 관리하는 상태
-  const [openItems, setOpenItems] = useState<OpenItemsState>({});
+  const [openItemId, setOpenItemId] = useState<number | null>(null);
 
-  // collapse 토글 핸들러
   const toggleItem = (id: number) => {
-    setOpenItems((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    setOpenItemId((prevOpenId) => (prevOpenId === id ? null : id));
   };
 
   if (list.length === 0) {
@@ -39,7 +23,7 @@ const CollapseList = ({ list, subCategoryOn = false }: CollapseListProps) => {
       {list.map((item) => (
         <li key={item.id} className={styles.collapseItem}>
           <div
-            className={`${styles.collapseItemHeader} ${openItems[item.id] ? styles.active : ''}`}
+            className={`${styles.collapseItemHeader} ${openItemId === item.id ? styles.active : ''}`}
             onClick={() => toggleItem(item.id)}
           >
             {subCategoryOn && (
@@ -53,13 +37,12 @@ const CollapseList = ({ list, subCategoryOn = false }: CollapseListProps) => {
             <h4 className={styles.collapseItemTitle}>{item.question}</h4>
           </div>
 
-          {openItems[item.id] && (
+          {openItemId === item.id && (
             <div className={styles.collapseItemContent}>
               <p
                 className={styles.collapseItemContentText}
                 dangerouslySetInnerHTML={{ __html: item.answer }}
               />
-              <p className={styles.emptyPharagraph} />
             </div>
           )}
         </li>
