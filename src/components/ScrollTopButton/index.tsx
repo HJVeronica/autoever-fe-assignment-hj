@@ -6,7 +6,7 @@ import topIcon from '@icons/ic_top.svg';
 
 const ScrollTopButton = () => {
   // 버튼 표시 여부를 결정하는 상태
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
 
   // 스크롤 이벤트 감지하여 버튼 표시 여부 결정
   useEffect(() => {

@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 
-interface CategoryItem {
+export interface CategoryItem {
   categoryID: string;
   name: string;
 }
 
-interface CategoryData {
+export interface CategoryData {
   CONSULT: CategoryItem[];
   USAGE: CategoryItem[];
   [key: string]: CategoryItem[];
@@ -24,7 +24,6 @@ export const useCategory = () => {
   return useQuery({
     queryKey: ['categories'],
     queryFn: fetchCategories,
+    staleTime: 1000 * 60 * 5, // 5분 동안 데이터 캐싱
   });
 };
-
-export type { CategoryData, CategoryItem };

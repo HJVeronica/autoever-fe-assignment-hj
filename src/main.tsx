@@ -7,10 +7,11 @@ import '@/styles/global.scss';
 import App from './App.tsx';
 
 // MSW 설정
-async function enableMocking() {
+async function setupMocking() {
   if (import.meta.env.MODE !== 'production') {
     const { worker } = await import('./mocks/browser');
-    return worker.start({ onUnhandledRequest: 'bypass' });
+    // 리턴 타입 문제를 피하기 위해 await 사용
+    await worker.start({ onUnhandledRequest: 'bypass' });
   }
 }
 
@@ -19,13 +20,24 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 1000 * 60 * 5, // 5분
+      retry: 1, // 실패 시 1번만 재시도
     },
   },
 });
 
 // MSW 초기화 후 앱 렌더링
-enableMocking().then(() => {
-  createRoot(document.getElementById('root')!).render(
+async function startApp() {
+  // MSW 초기화 먼저 처리
+  await setupMocking();
+
+  // 앱 렌더링
+  const rootElement = document.getElementById('root');
+
+  if (!rootElement) {
+    throw new Error('Root element not found');
+  }
+
+  createRoot(rootElement).render(
     <StrictMode>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
@@ -34,4 +46,8 @@ enableMocking().then(() => {
       </QueryClientProvider>
     </StrictMode>,
   );
+}
+
+startApp().catch((err) => {
+  console.error('앱 시작 중 오류 발생:', err);
 });

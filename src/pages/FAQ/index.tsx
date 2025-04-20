@@ -15,7 +15,12 @@ import ScrollTopButton from '@/components/ScrollTopButton';
 import { useCategory, CategoryItem } from '@/hooks/useCategory';
 import { useFaq, FaqItem } from '@/hooks/useFaq';
 
-const FAQ_CONSTANTS = {
+interface FaqConstants {
+  title: string;
+  description: string;
+}
+
+const FAQ_CONSTANTS: FaqConstants = {
   title: '자주 묻는 질문',
   description: '궁금하신 내용을 빠르게 찾아보세요.',
 };
@@ -98,16 +103,13 @@ const FAQPage = () => {
   // 데이터에서 FAQ 항목 추출
   const faqItems: FaqItem[] = faqData?.pages.flatMap((page) => page.data) || [];
 
-  // 디버깅을 위한 콘솔 로그
-  console.log('FAQ 데이터:', faqData);
-
   // 로딩 상태 표시
   if (isCategoryLoading) {
     return <div>카테고리를 불러오는 중...</div>;
   }
 
   // 탭 목록 추출
-  const tabs = Object.keys(categoryData || {}).map((key) => {
+  const tabs: CategoryItem[] = Object.keys(categoryData || {}).map((key) => {
     return {
       categoryID: key,
       name: key === 'CONSULT' ? '서비스 도입' : '서비스 이용',

@@ -5,7 +5,12 @@ import styles from './TopNavBar.module.scss';
 
 import logo from '@logos/logo_kia-biz.svg';
 
-const MENU_TITLE = [
+interface MenuItem {
+  title: string;
+  href: string;
+}
+
+const MENU_TITLE: MenuItem[] = [
   {
     title: '서비스 소개',
     href: 'https://wiblebiz.kia.com/Guide',
@@ -26,9 +31,9 @@ const MENU_TITLE = [
 
 const TopNavBar = () => {
   // 스크롤 위치 상태 추가
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [isScrolled, setIsScrolled] = useState<boolean>(false);
   // 메뉴 열림 상태 추가
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
 
   // 스크롤 이벤트 감지
   useEffect(() => {
@@ -86,6 +91,7 @@ const TopNavBar = () => {
             type="button"
             onClick={toggleMenu}
             className={isMenuOpen ? styles.opened : ''}
+            aria-label="메뉴 열기/닫기"
           >
             메뉴 열기/닫기
           </button>
