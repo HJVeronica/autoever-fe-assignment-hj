@@ -1,0 +1,58 @@
+$breakpoint-mobile: 743px;
+$breakpoint-tablet: 1023px;
+$breakpoint-desktop: 1439px;
+
+// 모바일 디바이스를 위한 믹스인
+@mixin mobile {
+  @media (max-width: #{$breakpoint-mobile}) {
+    @content;
+  }
+}
+
+// 태블릿 디바이스를 위한 믹스인
+@mixin tablet {
+  @media (min-width: #{$breakpoint-mobile + 1}) and (max-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+
+// 태블릿 및 모바일 디바이스를 위한 믹스인
+@mixin tablet-and-mobile {
+  @media (max-width: #{$breakpoint-tablet}) {
+    @content;
+  }
+}
+
+@mixin min-tablet {
+  @media (min-width: #{$breakpoint-tablet + 1}) {
+    @content;
+  }
+}
+
+// 태블릿 및 데스크톱 디바이스를 위한 믹스인
+@mixin desktop {
+  @media (min-width: #{$breakpoint-tablet + 1}) and (max-width: #{$breakpoint-desktop}) {
+    @content;
+  }
+}
+
+// 데스크톱 디바이스를 위한 믹스인
+// @mixin desktop {
+//   @media (min-width: #{$breakpoint-desktop + 1}) {
+//     @content;
+//   }
+// }
+
+// 특정 최대 너비에 대한 믹스인
+@mixin max-width($width) {
+  @media (max-width: #{$width}) {
+    @content;
+  }
+}
+
+// 특정 최소 너비에 대한 믹스인
+@mixin min-width($width) {
+  @media (min-width: #{$width}) {
+    @content;
+  }
+}

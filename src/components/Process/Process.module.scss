@@ -9,16 +9,59 @@ $process-content-margin: 8px;
     line-height: $line-height-sm;
     margin: 0 calc($space-md * -1 / 2);
 
+    @include mobile {
+      margin: 0 calc(16px * -1 / 2);
+    }
+
+    @include tablet-and-mobile {
+      flex-direction: column;
+      row-gap: 24px;
+      margin: 0 calc(16px * -1 / 2);
+    }
+
+    @include desktop {
+      margin: 0 calc(24px * -1 / 2);
+    }
+
     li.processItem {
       flex: 1 1;
       margin: 0 calc($space-md / 2);
       padding: 0 0 0 24px;
+
+      @include tablet-and-mobile {
+        display: flex;
+        padding: 0;
+      }
+
+      @include desktop {
+        margin: 0 calc(24px / 2);
+      }
 
       img {
         display: block;
         height: $icon-xl;
         width: $icon-xl;
         margin-bottom: $process-content-margin;
+
+        @include mobile {
+          height: 40px;
+          width: 40px;
+
+          margin: 0 12px 0 0;
+        }
+        @include tablet {
+          width: 48px;
+          height: 48px;
+        }
+
+        @include tablet-and-mobile {
+          margin: 0 16px 0 0;
+        }
+
+        @include desktop {
+          height: 48px;
+          width: 48px;
+        }
       }
 
       .processItemContent {
@@ -28,6 +71,10 @@ $process-content-margin: 8px;
         strong {
           display: block;
           font-size: 18px;
+
+          @include mobile {
+            font-size: 16px;
+          }
         }
 
         span {
@@ -35,20 +82,27 @@ $process-content-margin: 8px;
           color: $gray700;
           font-size: 16px;
           margin-top: $process-content-margin;
+
+          @include mobile {
+            font-size: 14px;
+            margin-top: 4px;
+          }
         }
       }
 
-      &:not(:first-child) {
-        .processItemContent {
-          &::before {
-            content: '';
-            background: url('@icons/ic_step-arrow.svg') no-repeat;
-            background-size: auto 100%;
-            width: 24px;
-            height: 24px;
-            position: absolute;
-            left: -36px;
-            top: 0;
+      @include min-tablet {
+        &:not(:first-child) {
+          .processItemContent {
+            &::before {
+              content: '';
+              background: url('@icons/ic_step-arrow.svg') no-repeat;
+              background-size: auto 100%;
+              width: 24px;
+              height: 24px;
+              position: absolute;
+              left: -36px;
+              top: 0;
+            }
           }
         }
       }

@@ -1,5 +1,6 @@
 @import 'colors';
 @import 'variables';
+@import 'responsive';
 
 // font 정의
 @font-face {
@@ -46,6 +47,10 @@ body {
   margin: 0;
   min-width: 360px;
   max-width: $max-width;
+
+  &.menu-opened {
+    overflow: hidden;
+  }
 }
 
 ul,
@@ -82,4 +87,17 @@ button {
   line-height: $line-height-sm;
   font-size: $h2-font-size;
   margin: $h2-margin;
+}
+
+@include mobile {
+  .sectionTitle {
+    font-size: 20px;
+    margin: 48px 0 16px;
+  }
+}
+
+@include desktop {
+  .sectionTitle {
+    margin: 48px 0 24px;
+  }
 }

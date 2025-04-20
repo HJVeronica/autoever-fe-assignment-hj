@@ -1,9 +1,18 @@
 @import '@/styles/variables';
 @import '@/styles/colors';
+@import '@/styles/responsive';
 
 .tabs {
   display: flex;
   margin-bottom: $px-lg;
+
+  @include mobile {
+    margin-bottom: 24px;
+  }
+
+  @include tablet {
+    margin-bottom: 32px;
+  }
 
   li {
     flex: 1 1;
@@ -11,7 +20,6 @@
     border: 1px solid $midnight100;
 
     font-size: $tab-font-size;
-
     min-height: $btn-height-xlg2;
 
     cursor: pointer;
@@ -24,6 +32,18 @@
     height: 100%;
 
     padding: 8px;
+
+    @include mobile {
+      font-size: 14px;
+      min-height: 40px;
+      padding: 6px;
+    }
+
+    @include tablet {
+      font-size: 16px;
+      min-height: 48px;
+      padding: 6px;
+    }
 
     &.active {
       background-color: $midnight900;
