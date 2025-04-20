@@ -1,5 +1,6 @@
 @import 'colors';
 @import 'variables';
+@import 'responsive';
 
 // font 정의
 @font-face {
@@ -46,6 +47,10 @@ body {
   margin: 0;
   min-width: 360px;
   max-width: $max-width;
+
+  &.menu-opened {
+    overflow: hidden;
+  }
 }
 
 ul,

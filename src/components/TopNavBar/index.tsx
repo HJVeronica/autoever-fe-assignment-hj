@@ -27,6 +27,8 @@ const MENU_TITLE = [
 const TopNavBar = () => {
   // 스크롤 위치 상태 추가
   const [isScrolled, setIsScrolled] = useState(false);
+  // 메뉴 열림 상태 추가
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // 스크롤 이벤트 감지
   useEffect(() => {
@@ -48,6 +50,19 @@ const TopNavBar = () => {
     };
   }, []);
 
+  // 햄버거 메뉴 클릭 이벤트 핸들러
+  const toggleMenu = () => {
+    const newMenuState = !isMenuOpen;
+    setIsMenuOpen(newMenuState);
+
+    // body 태그에 'menu-opened' 클래스 토글
+    if (newMenuState) {
+      document.body.classList.add('menu-opened');
+    } else {
+      document.body.classList.remove('menu-opened');
+    }
+  };
+
   return (
     <div className={`${styles.container} ${isScrolled ? styles.scrolled : ''}`}>
       <div className={styles.inner}>
@@ -55,7 +70,7 @@ const TopNavBar = () => {
           <img className={styles.logo} src={logo} alt="KIA BIZ" />
         </Link>
 
-        <nav className={styles.nav}>
+        <nav className={`${styles.nav} ${isMenuOpen ? styles.opened : ''}`}>
           <ul>
             {MENU_TITLE.map((menu) => (
               <a href={menu.href} key={menu.title} target={'_self'}>
@@ -64,6 +79,17 @@ const TopNavBar = () => {
             ))}
           </ul>
         </nav>
+
+        {/* 모바일 햄버거 메뉴 */}
+        <span className={styles.hamburgerMenu}>
+          <button
+            type="button"
+            onClick={toggleMenu}
+            className={isMenuOpen ? styles.opened : ''}
+          >
+            메뉴 열기/닫기
+          </button>
+        </span>
       </div>
     </div>
   );
