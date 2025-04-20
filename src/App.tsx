@@ -1,10 +1,9 @@
 import TopNavBar from '@/components/TopNavBar';
 import Footer from '@/components/Footer';
+import { Routes, Route } from 'react-router';
 import FAQPage from '@/pages/FAQ';
 
-import { Routes, Route } from 'react-router';
-
-function App() {
+const App = () => {
   return (
     <>
       <TopNavBar />
@@ -16,6 +15,6 @@ function App() {
       <Footer />
     </>
   );
-}
+};
 
 export default App;

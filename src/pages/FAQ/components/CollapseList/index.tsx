@@ -14,12 +14,13 @@ interface CollapseListProps {
   subCategoryOn?: boolean; // USAGE 카테고리인지 여부
 }
 
-export default function CollapseList({
-  list,
-  subCategoryOn = false,
-}: CollapseListProps) {
+interface OpenItemsState {
+  [key: number]: boolean;
+}
+
+const CollapseList = ({ list, subCategoryOn = false }: CollapseListProps) => {
   // 각 항목의 collapse 상태를 관리하는 상태
-  const [openItems, setOpenItems] = useState<{ [key: number]: boolean }>({});
+  const [openItems, setOpenItems] = useState<OpenItemsState>({});
 
   // collapse 토글 핸들러
   const toggleItem = (id: number) => {
@@ -65,4 +66,6 @@ export default function CollapseList({
       ))}
     </ul>
   );
-}
+};
+
+export default CollapseList;

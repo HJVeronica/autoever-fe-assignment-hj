@@ -1,6 +1,6 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-interface FaqItem {
+export interface FaqItem {
   id: number;
   categoryName: string;
   subCategoryName: string;
@@ -8,7 +8,7 @@ interface FaqItem {
   answer: string;
 }
 
-interface FaqResponse {
+export interface FaqResponse {
   data: FaqItem[];
   total: number;
   page: number;
@@ -16,10 +16,20 @@ interface FaqResponse {
   totalPages: number;
 }
 
-interface FaqParams {
+// InfiniteData 인터페이스 추가
+export interface InfiniteFaqResponse {
+  pages: FaqResponse[];
+  pageParams: number[];
+}
+
+export interface FaqParams {
   limit?: number;
   category?: string;
   query?: string;
+}
+
+interface FetchFaqsParams extends FaqParams {
+  pageParam?: number;
 }
 
 const fetchFaqs = async ({
@@ -27,9 +37,7 @@ const fetchFaqs = async ({
   limit = 10,
   category,
   query,
-}: {
-  pageParam?: number;
-} & FaqParams): Promise<FaqResponse> => {
+}: FetchFaqsParams): Promise<FaqResponse> => {
   const params = new URLSearchParams();
   params.append('page', pageParam.toString());
   params.append('limit', limit.toString());
@@ -60,7 +68,7 @@ export const useFaq = ({ limit = 10, category, query }: FaqParams = {}) => {
       category: category || 'all',
       query: query || '',
     },
-  ];
+  ] as const;
 
   return useInfiniteQuery({
     queryKey,
@@ -77,5 +85,3 @@ export const useFaq = ({ limit = 10, category, query }: FaqParams = {}) => {
     gcTime: 1000 * 60 * 30, // 30분 (이전의 cacheTime)
   });
 };
-
-export type { FaqItem };

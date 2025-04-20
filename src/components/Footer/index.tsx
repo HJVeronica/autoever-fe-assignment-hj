@@ -8,8 +8,10 @@ const Footer = () => {
       <div className={styles.footerContainer}>
         <div className={styles.footerInfo}>
           <div className={styles.footerTerms}>
-            <a>개인정보 처리방침</a>
-            <a>이용약관</a>
+            <a href="https://privacy.kia.com/overview/full-policy">
+              개인정보 처리방침
+            </a>
+            <a href="#terms">이용약관</a>
           </div>
 
           <div className={styles.footerInfoText}>
