@@ -1,54 +1,58 @@
-# React + TypeScript + Vite
+# 현대오토에버 FE 채용과제
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 과제 내용
 
-Currently, two official plugins are available:
+아래 조건을 참고하여 [기아 비즈 FAQ 페이지](https://wiblebiz.kia.com/FAQ) 화면을 최대한 비슷하게 제작합니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 필요한 이미지가 있다면 다운로드하여 사용 가능
+- 필요한 API 응답 결과는 개발자도구(크롬 기준) > 네트워크 탭 > Fetch/XHR 에서 참고 (목업 데이터로 시뮬레이션)
+- MSW(Mock Service Worker)나 JSON Server 같은 오픈소스 활용 가능
+- 개발 환경은 Vite를 활용해서 직접 구성 또는 Next.js를 세팅하여 진행
+- 스타일링은 CSS, SASS, CSS in JS 등 작업하기 편한 도구 활용
+- Fetch 관련 오픈소스도 React Query, SWR등을 활용 가능, 네이티브 Fetch를 사용 가능
 
-## Expanding the ESLint configuration
+## 기술 스택
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| 구분                        | 기술                      |
+| :-------------------------- | :------------------------ |
+| 개발 환경                   | React + Vite              |
+| 언어                        | TypeScript                |
+| 상태 관리 / 데이터 Fetching | React Query               |
+| API Mocking                 | Mock Service Worker (MSW) |
+| Styling                     | SASS/SCSS                 |
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
-```
+## 프로젝트 설정 및 실행
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  **의존성 설치**:
+    ```bash
+    yarn install
+    ```
+2.  **개발 서버 실행**:
+    ```bash
+    yarn dev
+    ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
+## 구현된 기능
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
-```
+### 1. UI 구성 및 스타일링
+
+- `Vite`를 사용하여 `React` + `TypeScript` 프로젝트 환경을 구성했습니다.
+- `SCSS`를 활용하여 전체적인 레이아웃 및 컴포넌트 스타일링을 진행했습니다.
+- 반응형 스타일을 적용했습니다.
+- 재사용성을 위해 컴포넌트를 나누어 구현했습니다.
+
+### 2. 데이터 연동 (API Mocking & Fetching)
+
+- `MSW` (Mock Service Worker)를 사용하여 실제 API 호출 없이 `/api/category` 및 `/api/faq` 엔드포인트를 Mocking했습니다.
+- `React Query`를 활용하여 서버 상태(카테고리, FAQ 목록)를 효율적으로 관리하고 캐싱합니다.
+- FAQ 목록은 무한 스크롤 방식으로 구현하여 '더보기' 버튼 클릭 시 추가 데이터를 로드합니다.
+
+### 3. 핵심 기능 구현
+
+| 기능                   | 설명                                                                                                                                            |
+| :--------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------- |
+| **탭 전환**            | '서비스 도입', '서비스 이용' 탭을 선택하여 관련 카테고리 필터 목록을 동적으로 변경합니다.                                                       |
+| **필터링**             | 각 탭 하위에 표시되는 필터 버튼을 클릭하여 해당 하위 카테고리에 속하는 FAQ 항목만 필터링하여 보여줍니다. '전체' 버튼 클릭 시 필터가 해제됩니다. |
+| **FAQ 아코디언**       | FAQ 목록은 아코디언 형태로 구현되어, 한 번에 하나의 질문 항목만 펼쳐볼 수 있습니다.                                                             |
+| **검색**               | 검색창에 검색어를 입려갛여 FAQ 목록 내용을 검색할 수 있습니다. 검색어를 입력하면 reset 버튼이 나타나며 이를 클릭 시 입력한 내용이 삭제됩니다.   |
+| **상단으로 가기 버튼** | 화면 우측 하단에 상단으로 이동하는 플로팅 버튼을 구현하였습니다. 스크롤 시 나타나거나 사라집니다.                                               |
