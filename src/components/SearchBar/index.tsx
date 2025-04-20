@@ -28,9 +28,15 @@ export default function SearchBar({ onSearch }: SearchBarProps) {
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
-          <button type="button" className={styles.reset} onClick={handleReset}>
-            초기화
-          </button>
+          {query && (
+            <button
+              type="button"
+              className={styles.reset}
+              onClick={handleReset}
+            >
+              초기화
+            </button>
+          )}
           <button type="submit" className={styles.submit}>
             검색
           </button>
